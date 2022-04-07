@@ -9,8 +9,8 @@ include_once __DIR__ . '/confiq/db.php';
 include_once __DIR__ . '/app/auth/login_handler.php';
 
 ?>
-<img src="./aasetCss/images/kayu.jpg" alt="" srcset=""
-    style="position: absolute; width:100%; height:100%; opacity:0.5;">
+<!-- <img src="./aasetCss/images/zzz" alt="" srcset=""
+    style="position: absolute; width:100%; height:100%; opacity:0.5;"> -->
 <div class="container">
 
     <div class="row">
