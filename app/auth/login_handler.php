@@ -30,6 +30,12 @@ if (isset($_POST['action'])) {
                     session_start();
 
                     $_SESSION['user'] = $result;
+                    unset($_SESSION['user']['password']);
+
+                    echo "<pre>" . print_r([
+                        "login_handler.php - 33",
+                        $_SESSION,
+                    ], 1) . "</pre>";die;
                     header("Location: /revisihutang/app/index.php");
                     exit;
                 }
