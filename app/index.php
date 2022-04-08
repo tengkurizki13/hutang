@@ -4,8 +4,10 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: ./login.php");
 }
+include_once '../confiq/db.php';
 
 include_once './handlers/home_handler.php';
+include_once './handlers/trasaction_handler.php';
 
 include_once './templates/header.php';
 include_once './templates/navbar.php';

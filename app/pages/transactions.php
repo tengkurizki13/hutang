@@ -14,15 +14,19 @@
             </tr>
         </thead>
         <tbody>
+            <?php
+$num = 1;
+foreach ($transactions as $transaction):
+?>
             <tr>
-                <td>1.</td>
-                <td>membeli gorengan</td>
-                <td>rizki</td>
-                <td>Rp.8000</td>
+                <td><?=$num++?></td>
+                <td><?=$transaction['use_for']?></td>
+                <td><?=$transaction['person_id']?></td>
+                <td><?=$transaction['nominal']?></td>
                 <td>
-                    <span class="badge bg-danger">unpaid</span>
+                    <span class="badge bg-danger"><?=$transaction['status']?></span>
                 </td>
-                <td>senin , 28 april 2022</td>
+                <td><?=date("d F Y H:i:s", strtotime($transaction['due_date']))?></td>
                 <td>
                     <button class="btn btn-info btn-sm"><i class="bi bi-eye"></i></button>
                     <button class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></button>
@@ -30,6 +34,7 @@
 
                 </td>
             </tr>
+            <?php endforeach;?>
         </tbody>
     </table>
 </div>
