@@ -1,5 +1,3 @@
 <?php
 
-
-header("Location: /revisihutang/login.php");
-?>
+header("Location: /login.php");
