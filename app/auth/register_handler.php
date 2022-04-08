@@ -1,10 +1,5 @@
 <?php
 
-echo "<pre>" . print_r([
-    "register_handler.php - 3",
-    $_POST,
-], 1) . "</pre>";
-
 if (isset($_POST['action'])) {
     if ($_POST['action'] === 'register') {
         $name = htmlspecialchars($_POST['name']);
