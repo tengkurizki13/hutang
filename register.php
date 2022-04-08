@@ -1,4 +1,9 @@
 <?php
+session_start();
+
+if (isset($_SESSION['user'])) {
+    header("Location: /app/index.php");
+}
 
 $titel = 'register';
 include_once './app/templates/header.php';
