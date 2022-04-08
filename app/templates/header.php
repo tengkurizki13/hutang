@@ -9,6 +9,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="/aasetCss/style.css">
     <link rel="shortcut icon" href="/app/public/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/app/public/css/style.css">
 </head>
 
 <body>
