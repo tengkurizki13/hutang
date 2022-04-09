@@ -15,7 +15,7 @@ include_once './templates/navbar.php';
 if (isset($_GET['page'])) {
     switch ($_GET['page']) {
         case 'transactions':
-            include_once './pages/transactions.php';
+            include_once './pages/transactions/index.php';
             break;
 
         default:
