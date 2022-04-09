@@ -1,5 +1,8 @@
 <div class="container">
-    <h1 class="mb-3">transactions</h1>
+    <h1 class="mb-3">transactions <?=($where === 'depts') ? '- Hutang' : '- Piutang'
+?></h1>
+
+
 
     <table class="table table-striped table-bordered">
         <thead class="table-dark">
