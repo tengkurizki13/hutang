@@ -2,7 +2,8 @@
     <h1 class="mb-3">transactions <?=($where === 'depts') ? '- Hutang' : '- Piutang'
 ?></h1>
 
-    <a class="btn btn-primary"><i class="bi bi-clipboard-plus"></i> Tambah</a>
+    <a href="/app/index.php?page=transactions&action=create" class="btn btn-primary"><i
+            class="bi bi-clipboard-plus"></i> Tambah</a>
 
     <table class="table table-striped table-bordered mt-3">
         <thead class="table-dark ">
