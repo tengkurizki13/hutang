@@ -32,7 +32,7 @@ if (isset($_POST['action'])) {
                     $_SESSION['user'] = $result;
                     unset($_SESSION['user']['password']);
 
-                    header("Location: /revisihutang/app/index.php");
+                    header("Location: /app/index.php");
                     exit;
                 }
             }

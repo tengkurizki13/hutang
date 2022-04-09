@@ -17,8 +17,9 @@
                         Transactions
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                        <li><a class="dropdown-item" href="/app/index.php?page=transactions&view=debt">hutang</a></li>
-                        <li><a class="dropdown-item" href="/app/index.php?page=transactions&view=receivable">piutang</a>
+                        <li><a class="dropdown-item" href="/app/index.php?page=transactions&view=depts">hutang</a></li>
+                        <li><a class="dropdown-item"
+                                href="/app/index.php?page=transactions&view=receivables">piutang</a>
                         </li>
                     </ul>
                 </li>
