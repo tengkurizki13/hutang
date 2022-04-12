@@ -7,7 +7,8 @@ if (!isset($_SESSION['user'])) {
 include_once '../confiq/db.php';
 
 include_once './handlers/home_handler.php';
-include_once './handlers/trasaction_handler.php';
+include_once './handlers//transactions/trasaction_handler.php';
+include_once './handlers//transactions/handler.create.trx.php';
 
 include_once './templates/header.php';
 include_once './templates/navbar.php';
