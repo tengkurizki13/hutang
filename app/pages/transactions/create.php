@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="text-center pt-5 pb-3">create <?=$title?></h1>
+    <h1 class="text-center pt-5 pb-3">Create <?=$title?></h1>
     <div class="row">
         <div class="col-4"></div>
         <div class="col-4">
@@ -25,14 +25,17 @@ endif;
             <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
                 <div class="mb-3">
                     <label for="kegunaan" class="form-label">Kegunaan</label>
-                    <input type="text" class="form-control" name="use_for" id="kegunaan" aria-describedby="emailHelp">
+                    <input type="text" class="form-control" name="use_for" value="<?=$use_for?>" id="kegunaan"
+                        aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <label for="orang-favorit" class="form-label">Orang-favorit</label>
                     <select class="form-select" name="fav_person" id="fav_person">
-                        <option value="-">pilih orang favorit</option>
-                        <option value="tengku">Tengku</option>
-                        <option value="rizki">rizki</option>
+                        <option value="">pilih orang favorit</option>
+                        <?php foreach ($persons as $person): ?>
+
+                        <option value="<?=$person['id']?>"><?=$person['name']?></option>
+                        <?php endforeach;?>
                     </select>
                 </div>
                 <div class="mb-3">
@@ -41,7 +44,7 @@ endif;
                 </div>
                 <div class="mb-3">
                     <label for="nominal" class="form-label">Nominal</label>
-                    <input type="text" class="form-control" name="nominal" id="nominal">
+                    <input type="text" class="form-control" value="<?=$nominal?>" name="nominal" id="nominal">
                 </div>
                 <div class="mb-3">
                     <label for="waktu_receivable" class="form-label">Waktu <?=$title?></label>
