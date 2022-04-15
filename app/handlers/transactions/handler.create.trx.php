@@ -13,8 +13,8 @@ function insert_persons($con, $name)
     if ($person[0]) {
         return $person[1];
     }
-
-    $insert = mysqli_query($con, "INSERT INTO persons(name) VALUES('$name')");
+    global $session_user_id;
+    $insert = mysqli_query($con, "INSERT INTO persons(name,user_id) VALUES('$name','$session_user_id')");
     $last_insert_id = mysqli_insert_id($con);
 
     return $last_insert_id;
@@ -22,7 +22,8 @@ function insert_persons($con, $name)
 
 function is_person_exists($con, $name)
 {
-    $person = mysqli_query($con, "SELECT * FROM persons WHERE name='$name'");
+    global $session_user_id;
+    $person = mysqli_query($con, "SELECT * FROM persons WHERE name='$name' AND user_id=' $session_user_id' ");
     $row = mysqli_fetch_assoc($person);
 
     if (mysqli_num_rows($person) > 0) {
@@ -69,7 +70,7 @@ if (isset($_POST["action"])) {
                 $fav_person = insert_persons($con, $new_person);
             }
 
-            $insert = mysqli_query($con, "INSERT INTO `transactions`(`type`, `use_for`, `person_id`, `nominal`, `transaction_at`, `due_date`) VALUES ('$type','$use_for','$fav_person','$nominal','$transaction_at','$due_date')");
+            $insert = mysqli_query($con, "INSERT INTO `transactions`(`type`,`user_id`, `use_for`, `person_id`, `nominal`, `transaction_at`, `due_date`) VALUES ('$type','$session_user_id','$use_for','$fav_person','$nominal','$transaction_at','$due_date')");
 
             if ($insert) {
                 $alert = ['success', ['Data di tambahkan!']];
@@ -84,7 +85,8 @@ if (isset($_POST["action"])) {
 
 function get_all_person($con)
 {
-    $person = mysqli_query($con, "SELECT * FROM persons");
+    global $session_user_id;
+    $person = mysqli_query($con, "SELECT * FROM persons WHERE user_id ='$session_user_id'");
     $persons = [];
 
     while ($row = mysqli_fetch_assoc($person)) {

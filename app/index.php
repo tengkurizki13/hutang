@@ -6,6 +6,8 @@ if (!isset($_SESSION['user'])) {
 }
 include_once '../confiq/db.php';
 
+$session_user_id = $_SESSION['user']['id'];
+
 include_once './handlers/home_handler.php';
 include_once './handlers//transactions/trasaction_handler.php';
 include_once './handlers//transactions/handler.create.trx.php';

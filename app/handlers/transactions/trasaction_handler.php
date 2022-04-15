@@ -18,7 +18,7 @@ if (isset($_GET['view'])) {
 
 }
 
-$query = mysqli_query($con, "SELECT * FROM transactions WHERE type = '$where'");
+$query = mysqli_query($con, "SELECT * FROM transactions WHERE type = '$where' AND user_id ='$session_user_id'");
 
 $transactions = [];
 
