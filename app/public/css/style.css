@@ -1,0 +1,28 @@
+body {
+  background-color: rgb(245, 238, 238);
+}
+
+.jumbotron img {
+  width: 200px;
+  height: 200px;
+  object-fit: fill;
+  object-position: top;
+}
+
+.data h4 {
+  margin: 20px auto;
+  font-size: 27px;
+}
+
+hr {
+  margin: 20px auto;
+}
+.edit input {
+  margin: 5px 25%;
+  font-size: 20px;
+}
+
+.edit > div label {
+  margin: 5px 25%;
+  font-size: 20px;
+}

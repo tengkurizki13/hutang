@@ -25,7 +25,7 @@ foreach ($transactions as $transaction):
             <tr>
                 <td><?=$num++?></td>
                 <td><?=$transaction['use_for']?></td>
-                <td><?=$transaction['person_id']?></td>
+                <td><?=$transaction['name']?></td>
                 <td><?=$transaction['nominal']?></td>
                 <td>
                     <span class="badge bg-danger"><?=$transaction['status']?></span>
