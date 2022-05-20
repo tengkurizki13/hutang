@@ -10,6 +10,7 @@ $session_user_id = $_SESSION['user']['id'];
 
 include_once './handlers/home_handler.php';
 include_once './handlers/profile/profile_handler.php';
+include_once './handlers/profile/edit_handler.php';
 include_once './handlers//transactions/trasaction_handler.php';
 include_once './handlers//transactions/handler.create.trx.php';
 
