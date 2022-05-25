@@ -4,15 +4,28 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: ./login.php");
 }
+
 include_once '../confiq/db.php';
+include_once './handlers/main_handler.php';
 
-$session_user_id = $_SESSION['user']['id'];
-
-include_once './handlers/home_handler.php';
-include_once './handlers/profile/profile_handler.php';
-include_once './handlers/profile/edit_handler.php';
-include_once './handlers//transactions/trasaction_handler.php';
-include_once './handlers//transactions/handler.create.trx.php';
+if (isset($_GET['page'])) {
+    switch ($_GET['page']) {
+        case 'profile':
+            include_once './handlers/profile/edit_handler.php';
+            include_once './handlers/profile/profile_handler.php';
+            break;
+        case 'transactions':
+            include_once './handlers/transactions/delete_handler.php';
+            include_once './handlers/transactions/create_trx_handler.php';
+            include_once './handlers/transactions/transaction_handler.php';
+            break;
+        default:
+            include_once './handlers/home/home_handler.php';
+            break;
+    }
+} else {
+    include_once './handlers/home/home_handler.php';
+}
 
 include_once './templates/header.php';
 include_once './templates/navbar.php';
@@ -20,12 +33,18 @@ include_once './templates/navbar.php';
 if (isset($_GET['page'])) {
     switch ($_GET['page']) {
         case 'profile':
-            if (isset($_GET['edit'])) {
-                include_once './pages/profile/edit.php';
+            if (isset($_GET['action'])) {
+                switch ($_GET['action']) {
+                    case 'edit':
+                        include_once './pages/profile/edit.php';
+                        break;
+                    default:
+                        include_once './pages/profile/index.php';
+                        break;
+                }
             } else {
                 include_once './pages/profile/index.php';
             }
-
             break;
         case 'transactions':
             if (isset($_GET['action'])) {
@@ -33,22 +52,18 @@ if (isset($_GET['page'])) {
                     case 'create':
                         include_once './pages/transactions/create.php';
                         break;
-
                     default:
                         include_once './pages/transactions/index.php';
                         break;
                 }
-
             } else {
                 include_once './pages/transactions/index.php';
-
             }
             break;
         default:
             include_once './pages/dashboard.php';
             break;
     }
-
 } else {
     include_once './pages/dashboard.php';
 }

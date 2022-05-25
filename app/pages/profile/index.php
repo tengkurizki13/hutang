@@ -1,25 +1,9 @@
-<?php
-$aku = $_GET['aku'];
-
-if (isset($aku)) {
-    $ambil = mysqli_query($con, "SELECT * FROM users  WHERE wa_num = '$aku' ");
-    $letak = mysqli_fetch_assoc($ambil);
-    session_start();
-    $_SESSION['user'] = $letak;
-} else {
-    $ambil = mysqli_query($con, "SELECT * FROM users  WHERE name = '$user_login' ");
-    $letak = mysqli_fetch_assoc($ambil);
-}
-
-?>
-
-
-<div class="jumbotron  ">
+<div class="jumbotron ">
     <div class="gambar text-center">
-        <img src="/app/public/css/tengku.jpg" alt="" class="rounded-circle border border-dark border-2" />
-        <h2 class="display-6 pt-3"><?=strtoupper($letak['name'])?></h2>
+        <img src="/app/public/avatar/<?=$user['avatar']?>" alt="" class="rounded-circle border border-dark border-2" />
+        <h2 class="display-6 pt-3"><?=strtoupper($user['name'])?></h2>
         <a class="text-decoration-none me-auto col-6 fs-3 lead fst-italic"
-            href="/app/index.php?page=profile&edit=ganti">edit</a>
+            href="/app/index.php?page=profile&action=edit">edit</a>
     </div>
     <hr class="col-6">
     <div class="data">

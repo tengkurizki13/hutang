@@ -1,10 +1,12 @@
 <?php
 $page = "Transactions";
+
 if (isset($_GET['view'])) {
     switch ($_GET['view']) {
         case 'depts':
             $where = 'depts';
             $title = 'hutang';
+
             break;
 
         default:

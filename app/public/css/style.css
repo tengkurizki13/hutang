@@ -26,3 +26,7 @@ hr {
   margin: 5px 25%;
   font-size: 20px;
 }
+
+.form_trx_delete {
+  display: inline;
+}
