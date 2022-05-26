@@ -15,8 +15,10 @@ if (isset($_GET['page'])) {
             include_once './handlers/profile/profile_handler.php';
             break;
         case 'transactions':
-            include_once './handlers/transactions/delete_handler.php';
             include_once './handlers/transactions/create_trx_handler.php';
+            include_once './handlers/transactions/delete_handler.php';
+            include_once './handlers/transactions/edit.handler.php';
+            include_once './handlers/transactions/status_handler.php';
             include_once './handlers/transactions/transaction_handler.php';
             break;
         default:
@@ -51,6 +53,9 @@ if (isset($_GET['page'])) {
                 switch ($_GET['action']) {
                     case 'create':
                         include_once './pages/transactions/create.php';
+                        break;
+                    case 'edit':
+                        include_once './pages/transactions/edit.php';
                         break;
                     default:
                         include_once './pages/transactions/index.php';

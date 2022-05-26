@@ -49,6 +49,7 @@ endif;
             <?php
 $num = 1;
 foreach ($transactions as $transaction):
+
 ?>
             <tr>
                 <td><?=$num++?></td>
@@ -56,12 +57,38 @@ foreach ($transactions as $transaction):
                 <td><?=$transaction['name']?></td>
                 <td><?=$transaction['nominal']?></td>
                 <td>
-                    <span class="badge bg-danger"><?=$transaction['status']?></span>
+                    <div class="btn-group">
+                        <button type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <span
+                                class="badge bg-<?=$transaction['status_badge_color'][0]?> <?=$transaction['status_badge_color'][1]?>"><?=$transaction['status']?></span>
+
+                        </button>
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                <?php foreach ($transaction['trx_status'] as $ts): ?>
+
+
+                                <form action="" method="post">
+                                    <input type="hidden" name="action" value="status">
+                                    <input type="hidden" name="id" value="<?=$transaction['id']?>">
+                                    <input type="hidden" name="status" value="<?=$ts?>">
+                                    <button class="dropdown-item" href="#"><?=Ucwords($ts)?></button>
+                                </form>
+                                <?php endforeach;?>
+                            </li>
+                            <?php if (count($transaction['trx_status']) === 1 && $transaction['status'] !== 'paid'): ?>
+                            <li><a class="dropdown-item" href="#">Installment</a></li>
+                            <?php endif;?>
+                        </ul>
+                    </div>
                 </td>
                 <td><?=date("d F Y H:i:s", strtotime($transaction['due_date']))?></td>
                 <td>
                     <button class="btn btn-info btn-sm"><i class="bi bi-eye"></i></button>
-                    <button class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></button>
+                    <a href="/app/index.php?page=transactions&view=<?=$where?>&action=edit&id=<?=$transaction['id']?>&name=<?=$transaction['name']?>"
+                        class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
                     <form method="post" class="form_trx_delete" onclick="return confirm('yakin boss??')">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="<?=$transaction['id']?>">
