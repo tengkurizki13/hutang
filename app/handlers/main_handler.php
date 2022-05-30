@@ -10,7 +10,7 @@ $page_now = isset($_GET['page']) ? $_GET['page'] : 'home';
 function rupiah($number)
 {
 
-    $hasil_rupiah = "Rp " . number_format($number, 2, ',', '.');
+    $hasil_rupiah = "Rp " . number_format(empty($number) ? 0 : $number, 2, ',', '.');
     return $hasil_rupiah;
 
 }

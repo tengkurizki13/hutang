@@ -35,16 +35,16 @@ endif;
                         </tr>
                         <tr>
                             <th>Jumlah Angsuran</th>
-                            <td><?=rupiah($transaction['temp_nominal'])?></td>
+                            <td><?=rupiah($_POST['temp_nominal'])?></td>
                         </tr>
                         <tr>
                             <th>Sisa Angsuran</th>
-                            <td><?=rupiah($transaction['nominal'] - $transaction['temp_nominal'])?></td>
+                            <td><?=rupiah($transaction['nominal'] - intval($_POST['temp_nominal']))?></td>
                         </tr>
                     </tbody>
                 </table>
                 <input type="hidden" name="action" value="installment">
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button class="btn btn-primary">Save</button>
                 <a class="btn btn-danger" href="/app/index.php?page=transactions&view=<?=$where?>">Cancel</a>
             </form>
         </div>

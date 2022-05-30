@@ -76,5 +76,8 @@ if (isset($_GET['page'])) {
 } else {
     include_once './pages/dashboard.php';
 }
+echo "<pre>" . print_r([
+    "index.php - 79",
 
+], 1) . "</pre>";
 include_once './templates/footer.php';
