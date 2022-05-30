@@ -78,7 +78,7 @@ foreach ($transactions as $transaction):
                                 </form>
                                 <?php endforeach;?>
                             </li>
-                            <?php if (count($transaction['trx_status']) === 1 && $transaction['status'] !== 'paid'): ?>
+                            <?php if ((count($transaction['trx_status']) === 1 && $transaction['status'] !== 'paid') || $transaction['status'] === 'installment'): ?>
                             <li><a class="dropdown-item"
                                     href="/app/index.php?page=transactions&view=depts&action=installment&id=<?=$transaction['id']?>">Installment</a>
                             </li>
