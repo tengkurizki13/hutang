@@ -55,10 +55,10 @@ foreach ($transactions as $transaction):
                 <td><?=$num++?></td>
                 <td><?=$transaction['use_for']?></td>
                 <td><?=$transaction['name']?></td>
-                <td><?=$transaction['nominal']?></td>
+                <td><?=rupiah($transaction['nominal'] - $transaction['temp_nominal'])?></td>
                 <td>
                     <div class="btn-group">
-                        <button type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown"
+                        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             <span
                                 class="badge bg-<?=$transaction['status_badge_color'][0]?> <?=$transaction['status_badge_color'][1]?>"><?=$transaction['status']?></span>
@@ -68,8 +68,6 @@ foreach ($transactions as $transaction):
 
                             <li>
                                 <?php foreach ($transaction['trx_status'] as $ts): ?>
-
-
                                 <form action="" method="post">
                                     <input type="hidden" name="action" value="status">
                                     <input type="hidden" name="id" value="<?=$transaction['id']?>">
@@ -88,7 +86,8 @@ foreach ($transactions as $transaction):
                 </td>
                 <td><?=date("d F Y H:i:s", strtotime($transaction['due_date']))?></td>
                 <td>
-                    <button class="btn btn-info btn-sm"><i class="bi bi-eye"></i></button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                        data-bs-target="#trx_modal_<?=$transaction['id']?>"> <i class="bi bi-eye"></i></button>
                     <a href="/app/index.php?page=transactions&view=<?=$where?>&action=edit&id=<?=$transaction['id']?>&name=<?=$transaction['name']?>"
                         class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
                     <form method="post" class="form_trx_delete" onclick="return confirm('yakin boss??')">
@@ -105,3 +104,61 @@ foreach ($transactions as $transaction):
         </tbody>
     </table>
 </div>
+
+<?php
+$num = 1;
+foreach ($transactions as $transaction):
+
+?>
+
+
+
+<div class="modal fade" id="trx_modal_<?=$transaction['id']?>" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><?=$transaction['type']?>
+                    #<?=$transaction['id']?></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table  ">
+                    <thead class="text-center">
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Kegunaan</th>
+                            <th scope="col">Nominal</th>
+                            <th scope="col">Jumlah Angsuran</th>
+                            <th scope="col">Pemilik Akun</th>
+                            <th scope="col">Transaksi Ke</th>
+                            <th scope="col">Jatuh Tempo</th>
+                            <th scope="col">status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"><?=$num++?></th>
+                            <td><?=$transaction['name']?></td>
+                            <td><?=$transaction['use_for']?></td>
+                            <td><?=rupiah($transaction['nominal'])?></td>
+                            <td><?=rupiah($transaction['temp_nominal'])?></td>
+                            <td><?=$session_user_name?></td>
+                            <td><?=$transaction['id']?></td>
+                            <td><?=$transaction['due_date']?></td>
+                            <td><?=$transaction['status']?></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php endforeach;?>

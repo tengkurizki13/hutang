@@ -5,7 +5,7 @@ $transaction = $transactions[0];
 if (isset($_POST['action'])) {
     if ($_POST['action'] === 'installment') {
         $trx_id = $transaction['id'];
-        $trx_temp_nominal = $_POST['temp_nominal'];
+        $trx_temp_nominal = $_POST['temp_nominal'] + $transaction['temp_nominal'];
 
         $select = mysqli_query($con, "SELECT * FROM `transactions` WHERE  id = '$trx_id' AND user_id = '$session_user_id'");
         $transaction = mysqli_fetch_assoc($select);

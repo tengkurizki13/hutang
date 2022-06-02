@@ -1,6 +1,7 @@
 <?php
 
 $session_user_id = $_SESSION['user']['id'];
+$session_user_name = $_SESSION['user']['name'];
 
 $query = mysqli_query($con, "SELECT * FROM users WHERE id ='$session_user_id'");
 $user = mysqli_fetch_assoc($query);

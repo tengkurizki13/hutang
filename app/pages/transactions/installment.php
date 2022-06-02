@@ -30,16 +30,18 @@ endif;
                 <table class="table">
                     <tbody>
                         <tr>
-                            <th>Jumlah Hutang</th>
+                            <th>Jumlah Hutang Awal</th>
                             <td><?=rupiah($transaction['nominal'])?></td>
                         </tr>
                         <tr>
                             <th>Jumlah Angsuran</th>
-                            <td><?=rupiah($_POST['temp_nominal'])?></td>
+                            <td><?=rupiah($transaction['temp_nominal'] + (!empty($errors) ? 0 : $_POST['temp_nominal']))?>
+                            </td>
                         </tr>
                         <tr>
                             <th>Sisa Angsuran</th>
-                            <td><?=rupiah($transaction['nominal'] - intval($_POST['temp_nominal']))?></td>
+                            <td><?=rupiah($transaction['nominal'] - intval($transaction['temp_nominal']) - (!empty($errors) ? 0 : $_POST['temp_nominal']))?>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
