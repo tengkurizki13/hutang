@@ -23,11 +23,11 @@ if (isset($_GET['page'])) {
             include_once './handlers/transactions/installment_handler.php';
             break;
         default:
-            include_once './handlers/home/home_handler.php';
+            include_once './handlers/home/home_handlers.php';
             break;
     }
 } else {
-    include_once './handlers/home/home_handler.php';
+    include_once './handlers/home/home_handlers.php';
 }
 
 include_once './templates/header.php';

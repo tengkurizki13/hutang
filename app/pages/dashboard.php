@@ -8,9 +8,9 @@
                 <h5 class="card-header text-center">Jumlah Hutang</h5>
                 <div class="card-body">
                     <h5 class="card-title">Gambar</h5>
-                    <ol>
-                        <li>fulan bin bejo</li>
-                    </ol>
+
+                    <h5><?=rupiah($resultdepts['nominal'])?></h5>
+
                     <a href="#" class="btn btn-dark">Detail</a>
                 </div>
             </div>
@@ -20,9 +20,9 @@
                 <h5 class="card-header text-center">Jumlah Piutang</h5>
                 <div class="card-body">
                     <h5 class="card-title">Gambar</h5>
-                    <ol>
-                        <li>fulan bin bejo</li>
-                    </ol>
+
+                    <h5><?=rupiah($resultreceivables['nominal'])?></h5>
+
                     <a href="#" class="btn btn-dark">Detail</a>
                 </div>
             </div>
