@@ -6,7 +6,6 @@ if (isset($_GET['view'])) {
         case 'depts':
             $where = 'depts';
             $title = 'hutang';
-
             break;
 
         default:

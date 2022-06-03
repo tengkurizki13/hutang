@@ -11,3 +11,12 @@ foreach ($trx_Type as $type) {
     $$result = mysqli_fetch_assoc($$amount);
 
 }
+foreach ($trx_Type as $type) {
+
+    $count = "count" . $type;
+    $$count = mysqli_query($con, "SELECT * FROM `transactions` WHERE type = '$type' AND user_id = '$session_user_id'");
+
+    $resultCount = "resultCount" . $type;
+    $$resultCount = mysqli_num_rows($$count);
+
+}

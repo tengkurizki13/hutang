@@ -17,10 +17,10 @@ if (isset($_GET['page'])) {
         case 'transactions':
             include_once './handlers/transactions/create_trx_handler.php';
             include_once './handlers/transactions/delete_handler.php';
-            include_once './handlers/transactions/edit.handler.php';
-            include_once './handlers/transactions/transaction_handler.php';
             include_once './handlers/transactions/status_handler.php';
+            include_once './handlers/transactions/transaction_handler.php';
             include_once './handlers/transactions/installment_handler.php';
+            include_once './handlers/transactions/edit.handler.php';
             break;
         default:
             include_once './handlers/home/home_handlers.php';
