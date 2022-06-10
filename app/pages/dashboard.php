@@ -49,25 +49,25 @@
         </div>
         <div class="col-3 mt-5" style="height:170px;">
             <div class="card   text-dark  bg-secondary bg-gradient mb-3" style="max-width: 18rem;">
-                <h5 class="card-header text-center">Jumlah Hutang</h5>
+                <h5 class="card-header text-center">Jumlah Orang Hutang Paling Banyak</h5>
                 <div class="card-body">
                     <h5 class="card-title">Gambar</h5>
                     <ol>
-                        <li>fulan bin bejo</li>
+                        <li><?=$namesValueDepts[0]?></li>
                     </ol>
-                    <a href="#" class="btn btn-dark">Detail</a>
+                    <a href="/app/index.php?page=Most_Freq_Trx&view=depts" class="btn btn-dark">Detail</a>
                 </div>
             </div>
         </div>
         <div class="col-3 mt-5" style="height:170px;">
             <div class="card   text-dark  bg-secondary bg-gradient mb-3" style="max-width: 18rem;">
-                <h5 class="card-header text-center">Jumlah Hutang</h5>
+                <h5 class="card-header text-center">Jumlah Orang Piutang Paling Banyak</h5>
                 <div class="card-body">
                     <h5 class="card-title">Gambar</h5>
                     <ol>
-                        <li>fulan bin bejo</li>
+                        <li><?=$namesValueReceivables[0]?></li>
                     </ol>
-                    <a href="#" class="btn btn-dark">Detail</a>
+                    <a href="/app/index.php?page=Most_Freq_Trx&view=receivables" class="btn btn-dark">Detail</a>
                 </div>
             </div>
         </div>
