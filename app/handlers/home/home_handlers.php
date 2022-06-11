@@ -49,6 +49,7 @@ foreach ($trx_Type as $type) {
     }
 
     $namesCount = 'namesCount' . ucwords($type);
+
     $$namesCount = array_flip(array_count_values($$names));
     krsort($$namesCount);
 
