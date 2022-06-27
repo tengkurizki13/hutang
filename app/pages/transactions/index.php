@@ -2,47 +2,88 @@
     <h1 class="mb-3">transactions <?=($where === 'depts') ? '- Hutang' : '- Piutang'
 ?></h1>
 
-<div class="row">
+    <div class="row">
         <div class="col-md-12 d-flex justify-content-between pb-0 ">
             <a href="/app/index.php?page=transactions&view=<?=$where?>&action=create" class="btn btn-primary pb-0 ">
                 <i class="bi bi-plus-circle"></i> Tambah
             </a>
             <div class="d-flex gap-2">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        Sort <?php if($is_sorted) echo " ~ " . $sort ?>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                        data-bs-target="#trx_modal_<?=$transaction['id']?>">Export
+                    </button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">filter <?=$filter?>
                     </button>
                     <ul class="dropdown-menu">
-                         <li>
-                            <a class="dropdown-item" href="/app/index.php?page=transactions&view=<?=$where . $sorted_get . $search_get?>&sort=az"><i class="bi bi-sort-down"></i> A - Z</a>
+                        <li>
+                            <a class="dropdown-item"
+                                href="/app/index.php?page=transactions&view=<?=$where . $search_get . $sorted_get?>&filter=unpaid">unpaid</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/app/index.php?page=transactions&view=<?=$where . $sorted_get . $search_get?>&sort=za"><i class="bi bi-sort-up"></i> Z - A</a>
+                            <a class="dropdown-item"
+                                href="/app/index.php?page=transactions&view=<?=$where . $search_get . $sorted_get?>&filter=paid">paid</a>
                         </li>
-                        <?php if ($sorted_get) : ?>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="/app/index.php?page=transactions&view=<?=$where . $search_get?>"><i class="bi bi-trash"></i> Clear Sorting</a>
-                            </li>
-                        <?php endif ?>
+                        <li>
+                            <a class="dropdown-item"
+                                href="/app/index.php?page=transactions&view=<?=$where . $search_get . $sorted_get?>&filter=installment">installment</a>
+                        </li>
+                        <?php if ($filtered_get): ?>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                                href="/app/index.php?page=transactions&view=<?=$where . $search_get . $sorted_get?>"><i
+                                    class="bi bi-trash"></i> Clear filter</a>
+                        </li>
+                        <?php endif?>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Sort <?php if ($is_sorted) {echo " ~ " . $sort;}?>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item"
+                                href="/app/index.php?page=transactions&view=<?=$where . $search_get . $filtered_get?>&sort=az"><i
+                                    class="bi bi-sort-down"></i> A - Z</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                                href="/app/index.php?page=transactions&view=<?=$where . $search_get . $filtered_get?>&sort=za"><i
+                                    class="bi bi-sort-up"></i> Z - A</a>
+                        </li>
+                        <?php if ($sorted_get): ?>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                                href="/app/index.php?page=transactions&view=<?=$where . $search_get . $filtered_get?>"><i
+                                    class="bi bi-trash"></i> Clear Sorting</a>
+                        </li>
+                        <?php endif?>
                     </ul>
                 </div>
                 <form action="/app/index.php" method="get" class="d-flex">
                     <input type="hidden" name="page" value="transactions">
-                    <input type="hidden" name="view" value="<?= $where ?>">
-                    <?php if ($sorted_get) : ?>
-                        <input type="hidden" name="sort" value="<?= $sort_mode ?>">
-                    <?php endif ?>
-                    <input class="form-control me-2" name="search" type="search" placeholder="Search by use for"
-                        aria-label="Search" value="<?=$search ?? ''?>">
+                    <input type="hidden" name="view" value="<?=$where?>">
+                    <?php if ($sorted_get): ?>
+                    <input type="hidden" name="sort" value="<?=$sort_mode?>">
+                    <?php endif?>
+                    <input class="form-control me-2" id="input_data" name="search" type="search"
+                        placeholder="Search by use for" aria-label="Search" value="<?=$search ?? ''?>">
                     <button class="btn btn-outline-primary" type="submit">Search</button>
                 </form>
             </div>
         </div>
     </div>
-       
+
 
     <?php
 
@@ -64,8 +105,8 @@ foreach ($alert[1] as $alert_msg) {
 endif;
 ?>
 
-<?=$search ? "<h1 class='mt-4'>Hasil dari: " . $search . "</h1>" : ''?>
-<?=$search ? "<p>Di temukan " . $all_data . " data.</p>" : ''?>
+    <?=$search ? "<h1 class='mt-4'>Hasil dari: " . $search . "</h1>" : ''?>
+    <?=$search ? "<p>Di temukan " . $all_data . " data.</p>" : ''?>
     <table class="table table-striped table-bordered mt-3">
         <thead class="table-dark ">
             <tr>
@@ -148,7 +189,9 @@ foreach ($transactions as $transaction):
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">PDF</a></li>
                             <li><a class="dropdown-item" href="#">Excel</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" href="#">RAW</a></li>
                         </ul>
                     </div>
@@ -162,33 +205,33 @@ foreach ($transactions as $transaction):
         <ul class="pagination">
             <?php if ($now > 1): ?>
             <li class="page-item"><a class="page-link"
-            href="/app/index.php?page=transactions&view=depts&now=<?=$now - 1?><?= $search_get . $sorted_get ?>">Previous</a>
-            <?php endif;?>
+                    href="/app/index.php?page=transactions&view=depts&now=<?=$now - 1?><?=$search_get . $sorted_get . $filtered_get?>">Previous</a>
+                <?php endif;?>
 
-            <?php if ($now - 1 > 1): ?>
+                <?php if ($now - 1 > 1): ?>
             <li class="page-item"><a class="page-link"
-            href="/app/index.php?page=transactions&view=depts&now=<?=$now - 2?><?= $search_get . $sorted_get ?>"><?=$now - 2?></a>
+                    href="/app/index.php?page=transactions&view=depts&now=<?=$now - 2?><?=$search_get . $sorted_get . $filtered_get?>"><?=$now - 2?></a>
             </li>
             <?php endif?>
             <?php if ($now - 1 > 0): ?>
             <li class="page-item"><a class="page-link"
-            href="/app/index.php?page=transactions&view=depts&now=<?=$now - 1?><?= $search_get . $sorted_get ?>"><?=$now - 1?></a>
+                    href="/app/index.php?page=transactions&view=depts&now=<?=$now - 1?><?=$search_get . $sorted_get . $filtered_get?>"><?=$now - 1?></a>
             </li>
             <?php endif?>
 
             <li class="page-item active"><a class="page-link"
-             href="/app/index.php?page=transactions&view=debt<?= $now_get . $search_get . $sorted_get ?>"><?=$now?></a>
+                    href="/app/index.php?page=transactions&view=debt<?=$now_get . $search_get . $sorted_get . $filtered_get?>"><?=$now?></a>
             </li>
 
             <?php if ($now + 1 < ($total_pages + 1)): ?>
             <li class="page-item"><a class="page-link"
-            href="/app/index.php?page=transactions&view=depts&now=<?=$now + 1?><?= $search_get . $sorted_get ?>"><?=$now + 1?></a>
+                    href="/app/index.php?page=transactions&view=depts&now=<?=$now + 1?><?=$search_get . $sorted_get . $filtered_get?>"><?=$now + 1?></a>
             </li>
             <?php endif?>
 
             <?php if ($now < $total_pages): ?>
             <li class="page-item"><a class="page-link"
-            href="/app/index.php?page=transactions&view=depts&now=<?=$now + 1?><?= $search_get . $sorted_get ?>">Next</a>
+                    href="/app/index.php?page=transactions&view=depts&now=<?=$now + 1?><?=$search_get . $sorted_get . $filtered_get?>">Next</a>
             </li>
             <?php endif;?>
         </ul>
@@ -217,7 +260,7 @@ foreach ($transactions as $transaction):
                 <table class="table  ">
                     <thead class="text-center">
                         <tr>
-                        <th class="text-center">No</th>
+                            <th class="text-center">No</th>
                             <th scope="col">Name</th>
                             <th scope="col">Kegunaan</th>
                             <th scope="col">Nominal</th>
@@ -240,7 +283,6 @@ foreach ($transactions as $transaction):
                             <td><?=$transaction['due_date']?></td>
                             <td><?=$transaction['status']?></td>
                         </tr>
-                    <script src="/app/public/js/script.js"></script>
                     </tbody>
                 </table>
             </div>

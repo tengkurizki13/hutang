@@ -46,15 +46,20 @@ if (isset($_GET['search'])) {
 
 $search_get = $isset_search ? "&search=$isset_search" : '';
 
+if ($is_filtered) {
+    $query .= " AND t.status = '$filter'";
+}
+
 if ($is_sorted) {
     $query .= " ORDER BY use_for $orderBy";
 }
 
 
+
 if (isset($_GET['now'])  && !$is_search) {
     $query .= " LIMIT $start_page, $per_page";
 } else if (!$mode_single || $is_search) {
-    if (isset($_GET['now']) && $is_search) {
+    if (isset($_GET['now']) && $is_search || $is_filtered) {
         $query .= " LIMIT $start_page, $per_page";
     } else {
         $query .= " LIMIT 0, $per_page";

@@ -20,6 +20,11 @@ $now = isset($_GET['now']) && is_numeric($_GET['now']) ? $_GET['now'] : 1;
 
 $query = "SELECT * FROM transactions WHERE user_id = '$session_user_id' AND type='$where'";
 
+if ($is_filtered) {
+    $query .= " AND status = '$filter'";
+}
+
+
 $isset_search = isset($_GET['search']) ? $_GET['search'] : '';
 if ($isset_search) {
     $query .= " AND use_for like '%$isset_search%'";
