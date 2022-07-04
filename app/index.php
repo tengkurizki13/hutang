@@ -24,8 +24,8 @@ if (isset($_GET['page'])) {
             include_once './handlers/transactions/filter_handler.php';
             include_once './handlers/transactions/pagination_handler.php';
             include_once './handlers/transactions/sort_handler.php';
-            include_once './handlers/transactions/modal_handler.php';
             include_once './handlers/transactions/transaction_handler.php';
+            include_once './handlers/transactions/export_spreadsheet.php';
             include_once './handlers/transactions/installment_handler.php';
             include_once './handlers/transactions/edit.handler.php';
             break;
@@ -68,6 +68,9 @@ if (isset($_GET['page'])) {
                     case 'edit':
                         include_once './pages/transactions/edit.php';
                         break;
+                    case 'export':
+                        include_once './export/pdf/Export-pdf.php';
+                        break;
                     case 'installment':
                         include_once './pages/transactions/installment.php';
                         break;
@@ -85,6 +88,17 @@ if (isset($_GET['page'])) {
     }
 } else {
     include_once './pages/dashboard.php';
+}
+
+$jsScripts = [];
+
+// load JS (javascript)
+if (isset($_GET['page'])) {
+    switch ($_GET['page']) {
+        case 'transactions':
+            include_once './js/transactions.php';
+            break;
+    }
 }
 
 include_once './templates/footer.php';

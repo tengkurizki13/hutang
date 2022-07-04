@@ -3,6 +3,11 @@
 $session_user_id = $_SESSION['user']['id'];
 $session_user_name = $_SESSION['user']['name'];
 
+require 'export/excel/vendor/autoload.php';
+require 'export/pdf/vendor/autoload.php';
+
+
+
 $query = mysqli_query($con, "SELECT * FROM users WHERE id ='$session_user_id'");
 $user = mysqli_fetch_assoc($query);
 

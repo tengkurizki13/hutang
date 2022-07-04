@@ -2,16 +2,17 @@
     <h1 class="mb-3">transactions <?=($where === 'depts') ? '- Hutang' : '- Piutang'
 ?></h1>
 
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-md-12 d-flex justify-content-between pb-0 ">
             <a href="/app/index.php?page=transactions&view=<?=$where?>&action=create" class="btn btn-primary pb-0 ">
                 <i class="bi bi-plus-circle"></i> Tambah
             </a>
             <div class="d-flex gap-2">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                        data-bs-target="#trx_modal_<?=$transaction['id']?>">Export
-                    </button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exportModal">
+                Export
+                </button>
+               
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
@@ -107,7 +108,7 @@ endif;
 
     <?=$search ? "<h1 class='mt-4'>Hasil dari: " . $search . "</h1>" : ''?>
     <?=$search ? "<p>Di temukan " . $all_data . " data.</p>" : ''?>
-    <table class="table table-striped table-bordered mt-3">
+    <table class="table table-striped table-bordered mt-4">
         <thead class="table-dark ">
             <tr>
                 <th>No.</th>
@@ -187,12 +188,10 @@ foreach ($transactions as $transaction):
                             <i class="bi bi-printer"></i>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">PDF</a></li>
-                            <li><a class="dropdown-item" href="#">Excel</a></li>
+                            <li><a class="dropdown-item" href="/app/index.php?page=transactions&view=<?=$where?>&action=export&id=<?=$transaction['id']?>">PDF</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">RAW</a></li>
                         </ul>
                     </div>
                 </td>
@@ -205,17 +204,17 @@ foreach ($transactions as $transaction):
         <ul class="pagination">
             <?php if ($now > 1): ?>
             <li class="page-item"><a class="page-link"
-                    href="/app/index.php?page=transactions&view=depts&now=<?=$now - 1?><?=$search_get . $sorted_get . $filtered_get?>">Previous</a>
+                    href="/app/index.php?page=transactions&view=<?= $where?>&now=<?=$now - 1?><?=$search_get . $sorted_get . $filtered_get?>">Previous</a>
                 <?php endif;?>
 
                 <?php if ($now - 1 > 1): ?>
             <li class="page-item"><a class="page-link"
-                    href="/app/index.php?page=transactions&view=depts&now=<?=$now - 2?><?=$search_get . $sorted_get . $filtered_get?>"><?=$now - 2?></a>
+                    href="/app/index.php?page=transactions&view=<?= $where?>&now=<?=$now - 2?><?=$search_get . $sorted_get . $filtered_get?>"><?=$now - 2?></a>
             </li>
             <?php endif?>
             <?php if ($now - 1 > 0): ?>
             <li class="page-item"><a class="page-link"
-                    href="/app/index.php?page=transactions&view=depts&now=<?=$now - 1?><?=$search_get . $sorted_get . $filtered_get?>"><?=$now - 1?></a>
+                    href="/app/index.php?page=transactions&view=<?= $where?>&now=<?=$now - 1?><?=$search_get . $sorted_get . $filtered_get?>"><?=$now - 1?></a>
             </li>
             <?php endif?>
 
@@ -225,13 +224,13 @@ foreach ($transactions as $transaction):
 
             <?php if ($now + 1 < ($total_pages + 1)): ?>
             <li class="page-item"><a class="page-link"
-                    href="/app/index.php?page=transactions&view=depts&now=<?=$now + 1?><?=$search_get . $sorted_get . $filtered_get?>"><?=$now + 1?></a>
+                    href="/app/index.php?page=transactions&view=<?= $where?>&now=<?=$now + 1?><?=$search_get . $sorted_get . $filtered_get?>"><?=$now + 1?></a>
             </li>
             <?php endif?>
 
             <?php if ($now < $total_pages): ?>
             <li class="page-item"><a class="page-link"
-                    href="/app/index.php?page=transactions&view=depts&now=<?=$now + 1?><?=$search_get . $sorted_get . $filtered_get?>">Next</a>
+                    href="/app/index.php?page=transactions&view=<?= $where?>&now=<?=$now + 1?><?=$search_get . $sorted_get . $filtered_get?>">Next</a>
             </li>
             <?php endif;?>
         </ul>
@@ -241,57 +240,8 @@ foreach ($transactions as $transaction):
 
 <?php
 $num = 1;
-foreach ($transactions as $transaction):
+foreach ($transactions as $transaction){
+    include './pages/transactions/modal_detail.php';
+}
 
-?>
-
-
-
-<div class="modal fade" id="trx_modal_<?=$transaction['id']?>" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><?=$transaction['type']?>
-                    #<?=$transaction['id']?></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <table class="table  ">
-                    <thead class="text-center">
-                        <tr>
-                            <th class="text-center">No</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Kegunaan</th>
-                            <th scope="col">Nominal</th>
-                            <th scope="col">Jumlah Angsuran</th>
-                            <th scope="col">Pemilik Akun</th>
-                            <th scope="col">Transaksi Ke</th>
-                            <th scope="col">Jatuh Tempo</th>
-                            <th scope="col">status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row"><?=$num++?></th>
-                            <td><?=$transaction['name']?></td>
-                            <td><?=$transaction['use_for']?></td>
-                            <td><?=rupiah($transaction['nominal'])?></td>
-                            <td><?=rupiah($transaction['temp_nominal'])?></td>
-                            <td><?=$session_user_name?></td>
-                            <td><?=$transaction['id']?></td>
-                            <td><?=$transaction['due_date']?></td>
-                            <td><?=$transaction['status']?></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<?php endforeach;?>
+include './pages/transactions/modal_export.php';

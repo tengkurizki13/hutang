@@ -1,4 +1,4 @@
 <?php
 
 
-$con = mysqli_connect("localhost","root","","hutang-piutang-app");
+$con = mysqli_connect("127.0.0.1","root","","hutang-piutang-app");

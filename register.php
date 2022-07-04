@@ -14,7 +14,7 @@ include_once './app/auth/register_handler.php';
 
 
 
-<img src="./aasetCss/images/jam.jpg" alt="" srcset="" style="position: absolute; width:100%; height:100%; opacity:0.5;">
+<!-- <img src="./aasetCss/images/jam.jpg" alt="" srcset="" style="position: absolute; width:100%; height:100%; opacity:0.5;"> -->
 <div class="row w-100">
     <div class="col-4"></div>
     <div class="col-4">

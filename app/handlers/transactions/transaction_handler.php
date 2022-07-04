@@ -24,8 +24,16 @@ $query = "SELECT t.id, t.type, t.user_id, t.use_for, t.person_id, t.nominal, t.t
 
 $mode_single = false;
 
+
+if (isset($_POST['action'])) {
+    if (($_POST['action'] === 'export_pdf')) {
+
+        $mode_single = true;
+    }
+}
+
 if (isset($_GET['action'])) {
-    if (($_GET['action'] === 'installment' || $_GET['action'] === 'edit') && isset($_GET['id'])) {
+    if (($_GET['action'] === 'installment' || $_GET['action'] === 'edit' || $_GET['action'] === 'export') && isset($_GET['id'])) {
         $trx_id = $_GET['id'];
 
         $query .= " AND t.id = '$trx_id'";
@@ -69,6 +77,7 @@ if (isset($_GET['now'])  && !$is_search) {
 
 
 $select = mysqli_query($con, $query);
+
 
 
 
