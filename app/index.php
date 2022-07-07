@@ -18,13 +18,14 @@ if (isset($_GET['page'])) {
             include_once './handlers/profile/profile_handler.php';
             break;
         case 'transactions':
-            include_once './handlers/transactions/create_trx_handler.php';
             include_once './handlers/transactions/delete_handler.php';
             include_once './handlers/transactions/status_handler.php';
             include_once './handlers/transactions/filter_handler.php';
             include_once './handlers/transactions/pagination_handler.php';
             include_once './handlers/transactions/sort_handler.php';
             include_once './handlers/transactions/transaction_handler.php';
+            include_once './handlers/transactions/create_trx_handler.php';
+            include_once './handlers/transactions/between_handler.php';
             include_once './handlers/transactions/export_spreadsheet.php';
             include_once './handlers/transactions/installment_handler.php';
             include_once './handlers/transactions/edit.handler.php';
@@ -73,6 +74,9 @@ if (isset($_GET['page'])) {
                         break;
                     case 'installment':
                         include_once './pages/transactions/installment.php';
+                        break;
+                    case 'between':
+                        include_once './pages/transactions/between.php';
                         break;
                     default:
                         include_once './pages/transactions/index.php';

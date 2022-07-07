@@ -1,25 +1,24 @@
 <?php
 
+
+
 if (isset($_POST["action"])) {
     if ($_POST["action"] === "create_trx") {
         $use_for = htmlspecialchars($_POST['use_for']);
-        $fav_person = htmlspecialchars($_POST['fav_person']);
-        $new_person = htmlspecialchars($_POST['new_person']);
         $nominal = htmlspecialchars($_POST['nominal']);
+        $person_id = $_GET['person_id'];
         $transaction_at = htmlspecialchars($_POST['transaction_at']);
         $transaction_at = fmt_to_timestamp($transaction_at);
         $due_date = htmlspecialchars($_POST['due_date']);
         $due_date = fmt_to_timestamp($due_date);
         $type = htmlspecialchars($_POST['type']);
-
-        if (empty($fav_person)) {
-            unset($_POST['fav_person']);
-        } else {
-            unset($_POST['new_person']);
-        }
-
+        $nol = ":00";
+        $transaction_at .= $nol;
+        $due_date .= $nol;
+ 
+        
         $errors = [];
-
+        
         foreach ($_POST as $key => $val) {
             if (empty($val)) {
                 $new_key = ucfirst($key);
@@ -32,13 +31,13 @@ if (isset($_POST["action"])) {
             array_push($errors, "Nominal tidak boleh lebih dari 11");
         }
 
+        if (!empty($wa_num) && strlen($wa_num) < 12) {
+            array_push($errors, "wa harus lebih dari 12 angka");
+        }
+
         if (empty($errors)) {
-            if (empty($fav_person)) {
-                $fav_person = insert_persons($con, $new_person);
-            }
-
-            $insert = mysqli_query($con, "INSERT INTO `transactions`(`type`,`user_id`, `use_for`, `person_id`, `nominal`, `transaction_at`, `due_date`) VALUES ('$type','$session_user_id','$use_for','$fav_person','$nominal','$transaction_at','$due_date')");
-
+           
+                    $insert = mysqli_query($con, "INSERT INTO `transactions`(`type`,`user_id`, `use_for`, `person_id`, `nominal`,`transaction_at`, `due_date`) VALUES ('$type','$session_user_id','$use_for','$person_id','$nominal','$transaction_at','$due_date')");
             if ($insert) {
                 $alert = ['success', ['Data di tambahkan!']];
             } else {

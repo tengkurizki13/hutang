@@ -23,24 +23,17 @@ foreach ($alert[1] as $alert_msg) {
 endif;
 ?>
             <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
+            <?php if($_GET['orang']) :?>
+                <div class="mb-3">
+                    <label for="wa_num" class="form-label">wa_num</label>
+                    <input type="text" class="form-control" name="wa_num" value="<?=$wa_num?>" id="wa_num"
+                        aria-describedby="emailHelp">
+                </div>
+            <?php  endif;?>
                 <div class="mb-3">
                     <label for="kegunaan" class="form-label">Kegunaan</label>
                     <input type="text" class="form-control" name="use_for" value="<?=$use_for?>" id="kegunaan"
                         aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="orang-favorit" class="form-label">Orang-favorit</label>
-                    <select class="form-select" name="fav_person" id="fav_person">
-                        <option value="">pilih orang favorit</option>
-                        <?php foreach ($persons as $person): ?>
-
-                        <option value="<?=$person['id']?>"><?=$person['name']?></option>
-                        <?php endforeach;?>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="orang-baru" class="form-label">Orang-baru</label>
-                    <input type="text" class="form-control" name="new_person" id="orang-baru">
                 </div>
                 <div class="mb-3">
                     <label for="nominal" class="form-label">Nominal</label>
